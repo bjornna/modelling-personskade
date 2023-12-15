@@ -1,0 +1,85 @@
+archetype (adl_version=1.4; uid=620393b0-179a-380d-bf47-1861d315b481)
+	openEHR-EHR-CLUSTER.skadelegevakt_skaderegistrering.v1
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["application"] = <"Adl Designer">
+			>
+			other_details = <
+				["notes"] = <"Generated automatically by Adl Designer">
+			>
+		>
+	>
+
+description
+	original_author = <
+		["date"] = <"2014-02-01">
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"bna@dips.no">
+	>
+	lifecycle_state = <"0">
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For å kunne legge til felter mer dynamisk for Skadelegevakt ved OUS">
+			keywords = <"personskade", ...>
+			use = <"Benyttes for lokale registreringer (dybdestudie) ved Skadelegevakten på OUS ">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å kunne legge til felter mer dynamisk for Skadelegevakt ved OUS">
+			keywords = <"personskade", ...>
+			use = <"Benyttes for lokale registreringer (dybdestudie) ved Skadelegevakten på OUS ">
+		>
+	>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9ec5c4c4b151cdb792e3a681136f9601">
+		["build_uid"] = <"c09dd2af-8753-32ec-8765-ae13ec603fdc">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Lokal aktivitet (SKLV)
+		items cardinality matches {0..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Lokal aktivitet ved skade (SKLV)
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Lokal aktivitet (SKLV)">
+					description = <"Lokale felter for definisjon av skade ved Skadelegevakt på OUS ">
+				>
+				["at0002"] = <
+					text = <"Lokal aktivitet ved skade (SKLV)">
+					description = <"Lokal registrering av aktivitet ved skade. Kan knyttes til lokalt kodeverk i EPJ. ">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Lokal aktivitet (SKLV)">
+					description = <"Lokale felter for definisjon av skade ved Skadelegevakt på OUS ">
+				>
+				["at0002"] = <
+					text = <"Lokal aktivitet ved skade (SKLV)">
+					description = <"Lokal registrering av aktivitet ved skade. Kan knyttes til lokalt kodeverk i EPJ. ">
+				>
+			>
+		>
+	>
