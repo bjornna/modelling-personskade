@@ -1,0 +1,46 @@
+archetype (adl_version=1.4; uid=4a97a12f-f6ac-46d6-b529-b6303d044722)
+	openEHR-EHR-CLUSTER.lokal_aktivitet_hv.v1
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::nb]>
+
+description
+	original_author = <
+		["date"] = <"2024-01-10">
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS AS">
+		["email"] = <"bna@dips.no">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"71cc65824f65423a41e72cd4b2b028b7">
+		["build_uid"] = <"265edf54-6dc7-3a17-8fb6-5855e24c0d26">
+	>
+
+definition
+	CLUSTER[at0000] matches {*}    -- lokal_aktivitet_hv
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"lokal_aktivitet_hv">
+					description = <"lokal_aktivitet_hv">
+				>
+			>
+		>
+	>
