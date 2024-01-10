@@ -1,0 +1,46 @@
+archetype (adl_version=1.4; uid=8cb9d94a-97ef-4c61-86d3-e6a1fdc86da1)
+	openEHR-EHR-CLUSTER.fylle_ut_pa_vegne_av_helsenorge_hv.v1
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::nb]>
+
+description
+	original_author = <
+		["date"] = <"2024-01-10">
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS AS">
+		["email"] = <"bna@dips.no">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"f4095dd4880e3df9171e929f60a921ba">
+		["build_uid"] = <"6db27f9a-7ef8-3d64-b520-9b800961a1d5">
+	>
+
+definition
+	CLUSTER[at0000] matches {*}    -- fylle_ut_pa_vegne_av_helsenorge_hv
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"fylle_ut_pa_vegne_av_helsenorge_hv">
+					description = <"fylle_ut_pa_vegne_av_helsenorge_hv">
+				>
+			>
+		>
+	>
