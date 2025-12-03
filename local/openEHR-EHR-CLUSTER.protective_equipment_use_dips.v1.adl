@@ -1,0 +1,82 @@
+archetype (adl_version=1.4; uid=bc35f4dc-4e35-45f8-9c9b-a96c2000635d)
+	openEHR-EHR-CLUSTER.protective_equipment_use_dips.v1
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::nb]>
+
+description
+	original_author = <
+		["date"] = <"2025-11-25">
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS AS">
+		["email"] = <"bna@dips.no">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å samle informasjon om bruken av sikkerhetsutstyr i forbindelse med transport. Behovet kom høsten 2025 hvor Skadelegevakten på OUS ønsker å samle mer informasjon om skademekanismer ved transport med sykkel og sparkesykkel (inkludert elektrisk) ">
+			keywords = <"personskade;sikkerhetsutstyr", ...>
+			use = <"Benyttes for å dokumentere bruken av sikkerhetsutstyr i forbindelse med transport og i forbindelse med personskaderegistrering. ">
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"f6a292a10ceb34d2a8df09e56b6e3e2d">
+		["build_uid"] = <"ef312aed-6030-3416-b2df-e8cbcc123e97">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Sikkerhetsutstyr
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Hjelm
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002,    -- Ja
+							at0003,    -- Nei
+							at0004]    -- Ukjent
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sikkerhetsutstyr">
+					description = <"Dokumenterer bruk av sikkerhetsutstyr i forbindelse med transport. ">
+				>
+				["at0001"] = <
+					text = <"Hjelm">
+					description = <"Feltet brukes for å kartlegge om hjelm ble benyttet i forbindelse med transporten og da ulykken inntraff. 
+
+For å svare ja må hjelmen ha vært på hodet. ">
+				>
+				["at0002"] = <
+					text = <"Ja">
+					description = <"Hjelm ble brukt i forbindelse med transporten">
+				>
+				["at0003"] = <
+					text = <"Nei">
+					description = <"Hjelm var ikke i bruk på hodet under transporten">
+				>
+				["at0004"] = <
+					text = <"Ukjent">
+					description = <"Pasienten husker ikke om hjelm ble brukt eller informasjon mangler">
+				>
+			>
+		>
+	>
