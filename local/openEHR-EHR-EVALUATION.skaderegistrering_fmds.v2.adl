@@ -1,0 +1,879 @@
+archetype (adl_version=1.4; uid=67e18cdc-a974-4793-8ad7-22987a766342)
+	openEHR-EHR-EVALUATION.skaderegistrering_fmds.v2
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+
+description
+	original_author = <
+		["date"] = <"2014-04-07">
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"bna@dips.no">
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Hveem,Oslo universitetssykehus HF, Norway","Johan Lund, Norwegian Directorate of Health","Knut Melhuus,Oslo universitetssykehus HF, Norway">
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Registrering av felles minimum datasett til NPR. ">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Registrering av felles minimum datasett (FMDS) til NPR. ">
+			use = <"Benyttes for å registrere data til felles minste datasett for personskader til Norsk Pasientregister. Formålet med arketypen er å dekke det absolutt nødvendige for å kunne rapportere til Norsk Pasientregister. 
+
+Arketypen er utarbeidet i et samarbeid mellom Helsedirektoratet, Skadelegevakten ved OUS og DIPS i 2014. Arketypen støtter ​NPR 51.1.1​​. 
+
+I arketypen er tallverdier brukt istedet for bokstavkoder i kodeverkene selv om de er definert med bokstavkoder på Volven. Dette er gjort fordi tallverdiene er noe brukerne er godt kjent med. Disse mappes til riktig bokstavkode før rapport sendes til NPR.
+
+">
+			misuse = <"Siden arketypen er utarbeidet med fokus på korrekt rapportering anbefales det ikke at den benyttes for generell skadeanamnese. Det kliniske miljøet som jobber med skadebehandling bør bidra i et arbeid med å utforme arketyper som dekker dette behovet fra et klinisk perspektiv.">
+		>
+	>
+	other_details = <
+		["references"] = <"Datasettet for personskader er i stor grad basert på ICD-10, kapittel 20. Det inneholder kun de variablene
+som er nødvendig for å gi kunnskap om skadebildet på de viktigste ulykkes- og skadetyper i tillegg til å
+kunne følge utviklingen over tid. Opplysningene i datasettet er kontaktårsak, skademekanisme,
+alvorlighetsgrad, aktivitet på skadetidspunktet, skadested, fremkomstmiddel når trafikkulykke og ulykke i
+fri natur, utmark og sjø, skadetidspunkt og arbeidsgivers bransje når arbeidsulykke. Disse opplysningene
+utgjør grunnlaget for nasjonal statistikk over personskader. 
+
+Se Helsedirektoratets sider om rapportering til Norsk Pasientregister. 
+https://helsedirektoratet.no/norsk-pasientregister-npr/registrere-og-rapportere-data
+">
+		["MD5-CAM-1.0.1"] = <"a2381080dd28f104eaa4bc1e2c6046e6">
+		["build_uid"] = <"9a50b7a9-75e4-39ad-abbe-e6497721db8c">
+	>
+
+definition
+	EVALUATION[at0000] matches {    -- Skaderegistrering
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Data
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {    -- Når
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {    -- Kontaktårsak skade
+						value matches {
+							1|[local::at0008],
+							2|[local::at0009],
+							3|[local::at0010],
+							98|[local::at0011],
+							99|[local::at0012]
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {    -- Skademekanisme
+						value matches {
+							1|[local::at0115],
+							2|[local::at0116],
+							3|[local::at0117],
+							4|[local::at0118],
+							5|[local::at0119],
+							6|[local::at0120],
+							7|[local::at0137],
+							8|[local::at0138],
+							9|[local::at0121],
+							98|[local::at0122],
+							99|[local::at0123]
+						}
+					}
+					ELEMENT[at0026] occurrences matches {0..1} matches {    -- Aktivitet ved skade
+						value matches {
+							1|[local::at0027],
+							2|[local::at0029],
+							3|[local::at0030],
+							4|[local::at0131],
+							5|[local::at0107],
+							98|[local::at0033],
+							99|[local::at0034]
+						}
+					}
+					ELEMENT[at0036] occurrences matches {0..1} matches {    -- Arbeidsgivers bransje
+						value matches {
+							1|[local::at0108],
+							2|[local::at0109],
+							3|[local::at0111],
+							4|[local::at0112],
+							5|[local::at0132],
+							6|[local::at0208],
+							7|[local::at0209],
+							98|[local::at0113],
+							99|[local::at0114]
+						}
+					}
+					allow_archetype CLUSTER[at0105] occurrences matches {0..*} matches {    -- Lokale registreringer
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0106] occurrences matches {0..*} matches {    -- Alvorlighet ved skade
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.ais_scale(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					ELEMENT[at0072] occurrences matches {0..1} matches {    -- Skadested
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0073,    -- 1 - Vei, gate, fortau, gang- , sykkelvei, trafikkulykke
+									at0130,    -- 2 - Vei, gate, fortau, gang-, sykkelvei, ikke trafikkulykke
+									at0075,    -- 3 - Bolig inne
+									at0133,    -- 4 - Bolig ute
+									at0076,    -- 5 - Jordbruksbedrift, skogbruk
+									at0077,    -- 6 - Institusjon, sykehus, syke-, aldershjem
+									at0078,    -- 7 - Lekeplass
+									at0079,    -- 8 - Skole, barnehage, SFO
+									at0080,    -- 9 - Sport og idrettsområde (også på skole, universitet)
+									at0081,    -- 10 - Fri natur, utmark, hav, sjø og vann
+									at0082,    -- 98 - Annet skadested
+									at0083]    -- 99 - Ukjent skadested
+								}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0136] occurrences matches {0..*} matches {    -- Detaljer om skadested
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0217] occurrences matches {0..1} matches {    -- Fremkomstmiddel
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0235,    -- Til fots
+									at0236,    -- Sykkel
+									at0237,    -- Moped
+									at0238,    -- Motorsykkel
+									at0239,    -- Personbil/varebil
+									at0240,    -- Lastebil
+									at0241,    -- Buss
+									at0242,    -- Trikk/tog/bane
+									at0243,    -- AVT/firhjuling
+									at0244,    -- El-sykkel
+									at0245,    -- Snøskuter
+									at0246,    -- Ski/Snøbrett mv.
+									at0247,    -- Elektrisk sparkesykkel
+									at0248,    -- Sparkesykkel
+									at0249,    -- Traktor/landbruksmaskin
+									at0250,    -- Rullebrett/rulleskøyter/rulleski
+									at0251,    -- Vannskuter
+									at0252,    -- Båt
+									at0253,    -- Hest
+									at0254,    -- Annet spesifisert
+									at0255,    -- Ukjent
+									at0256]    -- Ikke relevant
+								}
+							}
+						}
+					}
+					ELEMENT[at0102] occurrences matches {0..1} matches {    -- Skadekommune
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0141] occurrences matches {0..*} matches {    -- Bydel
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Skaderegistrering (nb)">
+					description = <"Registrering av felles minimum datasett til NPR.">
+				>
+				["at0001"] = <
+					text = <"Data">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Når">
+					description = <"Angir dato og tidspunkt skaden oppsto.">
+				>
+				["at0007"] = <
+					text = <"Kontaktårsak skade">
+					description = <"Angir om skade skyldes vold, ulykke, etc.">
+				>
+				["at0008"] = <
+					text = <"1- Ulykkesskade">
+					description = <"En ulykke er en ufrivillig hendelse forårsaket av en hurtigvirkende kraft eller påvirkning som kan ytre seg i en skade på kroppen. Her brukesulykkesbegrepet i videste forstand.">
+				>
+				["at0009"] = <
+					text = <"2 - Villet egenskade">
+					description = <"Selvpåført skade er villet egenskade som selvmordsforsøk, selvmord, villet forgiftning, villet overdose av alkohol, narkotika, tabelltter eller annen villet egenskade">
+				>
+				["at0010"] = <
+					text = <"3 - Vold, overfall">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"98 - Skade etter lovhjemlet inngripen, krigshandling">
+					description = <"Skader som oppstår i sammenstøt med politi, ordensmakt">
+				>
+				["at0012"] = <
+					text = <"99 - Ukjent kontaktårsak">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Skademekanisme">
+					description = <"Angir akutt eller plutseling påvirkning mot kroppen av fysisk agens, som mekanisk energi, varme, elektrisitet, kjemikalier og stråling, og i en mengde eller størrelse som overstiger den menneskelige organismens toleransenivå. I noen tilfeller (drukning og forfrysning9 som et plutselig fravær av nødvendig agens som oksygen eller varme.
+
+Kommentar: Selv om det ikke er noe skarpt skille mellom sykdom og skade, oppstår skaden nesten umiddelbart etter kontakt med den påvirkende faktoren.">
+				>
+				["at0026"] = <
+					text = <"Aktivitet ved skade">
+					description = <"Angir den skadedes hovedaktivitet i skadeøyeblikket, eller den type situasjon den skadede var i.">
+				>
+				["at0027"] = <
+					text = <"1 - Inntektsgivende arbeid">
+					description = <"Dersom ja; angi arbeidsgivers bransje">
+				>
+				["at0029"] = <
+					text = <"2 - Utdanning (også i SFO og barnehage)">
+					description = <"Også skolefritidsordning(SFO) og i barnehage">
+				>
+				["at0030"] = <
+					text = <"3 - Sport, idrett, mosjon i utdanning">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"98 - Annen aktivitet">
+					description = <"Som lek, hobby, hus- og hagearbeid (etc)">
+				>
+				["at0034"] = <
+					text = <"99 - Ukjent aktivitet">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Arbeidsgivers bransje">
+					description = <"*Angis hvis aktivitet ved skade er 1 - Inntektsgivende arbeid (nb)">
+				>
+				["at0072"] = <
+					text = <"Skadested">
+					description = <"Skadestedet er det stedet hvor skadehendelsen oppsto eller startet. F.eks. bil som kjører ut for veien og 
+havner i en elv – da er veien å betrakte som skadestedet. ">
+				>
+				["at0073"] = <
+					text = <"1 - Vei, gate, fortau, gang- , sykkelvei, trafikkulykke">
+					description = <"Dvs. kjøretøy i bevegelse var innblandet (også sykkelvelt). Dersom ja: Fremkomstmiddel til den skadede (se nedenfor). Gate, vei som er åpen for alminnelig ferdsel, også i trikk.">
+				>
+				["at0075"] = <
+					text = <"3 - Bolig inne">
+					description = <"Bolig, fritidshus, hytte, vernet bolig for">
+				>
+				["at0076"] = <
+					text = <"5 - Jordbruksbedrift, skogbruk">
+					description = <"Inklusiv: gårdstun, driftsbygninger, dyrket mark, gårdsvei,">
+				>
+				["at0077"] = <
+					text = <"6 - Institusjon, syke-, aldershjem">
+					description = <"Fritidshjem, ungdomsklubb, døgninstitusjoner for barn og">
+				>
+				["at0078"] = <
+					text = <"7 - Lekeplass">
+					description = <"Opparbeidet lekeplass på skole, SFO, barnehage, park,">
+				>
+				["at0079"] = <
+					text = <"8 - Skole, barnehage, SFO">
+					description = <"Benyttes for alle utdanningssteder (skole, høyskole, universitet, barnehage, etc.). SFO: skolefritidsordning. Inklusiv: Høyskole, universitet,">
+				>
+				["at0080"] = <
+					text = <"9 - Sport og idrettsområde (også på skole, universitet)">
+					description = <"*Inklusiv: Idrettsanlegg inne og ute med bygninger og tribuner, ballbane, golf- og tennisbane, svømmehall, slalåmbakke og lysløype. Eksklusiv: Preparerte løyper i skog og mark som ikke er lysløyper (N). Svømmebasseng, tennisbane i privat bolig/hage (B1 eller B2).) (nb)">
+				>
+				["at0081"] = <
+					text = <"10 - Fri natur, utmark,  hav, sjø og vann">
+					description = <"Inklusiv: Utmark, skog, fjellområde, sti, turvei, preparerte. Dersom ja, angi type fremkomstmiddel. ">
+				>
+				["at0082"] = <
+					text = <"98 - Annet skadested">
+					description = <"Transportområde som stasjon, flyplass, i vogn på skinner">
+				>
+				["at0083"] = <
+					text = <"99 - Ukjent skadested">
+					description = <"*">
+				>
+				["at0102"] = <
+					text = <"Skadekommune">
+					description = <"*">
+				>
+				["at0105"] = <
+					text = <"Lokale registreringer">
+					description = <"*">
+				>
+				["at0106"] = <
+					text = <"Alvorlighet ved skade">
+					description = <"*">
+				>
+				["at0107"] = <
+					text = <"5 - Friluftsliv,  jakt og fiske i fritid og i utmark">
+					description = <"*">
+				>
+				["at0108"] = <
+					text = <"1- Jordbruk, skogbruk og fiske">
+					description = <"*">
+				>
+				["at0109"] = <
+					text = <"2- Industri">
+					description = <"*">
+				>
+				["at0111"] = <
+					text = <"3- Bygg- og anlegg">
+					description = <"Bygge- og anleggsvirksomhet">
+				>
+				["at0112"] = <
+					text = <"4- Transport">
+					description = <"*">
+				>
+				["at0113"] = <
+					text = <"98 - Annen bransje">
+					description = <"*">
+				>
+				["at0114"] = <
+					text = <"99 - Ukjent bransje">
+					description = <"*">
+				>
+				["at0115"] = <
+					text = <"1- Fall fra høyde, også i/fra trapp">
+					description = <"Fall fra høyere til lavere plan">
+				>
+				["at0116"] = <
+					text = <"2- Annet fall">
+					description = <"Inklusiv: fall på bakke, gulv, på ski, skøyter osv.
+Eksklusiv: vrikke ankel uten fall (O) 
+">
+				>
+				["at0117"] = <
+					text = <"3- Sammenstøt, påkjørsel">
+					description = <"Inklusiv: Slag og støt i/fra kjørende transportmiddel,
+sammenstøt med personer, dyr, slag, spark av menneske, dyr. ">
+				>
+				["at0118"] = <
+					text = <"4 -Klemt, fanget, knust">
+					description = <"Klemt i dør, klemt fast eller fanget i noe (f.eks. maskiner), knust,
+overkjørt. ">
+				>
+				["at0119"] = <
+					text = <"5- Kutt (ikke fall), bitt, stikk, skutt">
+					description = <"Inklusiv: Klippet, skåret, saget, revet, hugget, stukket, annen
+inntrengning (prosjektil, flis, partikkel).
+Dyrebitt, klort, insektsstikk.
+Eksklusiv: bitt, stikk av giftig dyr, plante (A). ">
+				>
+				["at0120"] = <
+					text = <"6- Kvelning, drukning">
+					description = <"Inklusiv: kvelning pga. luftmangel, blokkering av luftvei, begravd
+av snø, jord, korn etc., druknet, nærdruknet. ">
+				>
+				["at0121"] = <
+					text = <"9- Akutt overbelastning">
+					description = <"Akutt overbelastning av kropp/kroppsdel, strekning, vridning
+pga. egen voldsom bevegelse eller anstrengende stilling.
+Eksklusiv: Langvarig overbelastning mer enn 48 timer. ">
+				>
+				["at0122"] = <
+					text = <"98 - Annen skademekanisme">
+					description = <"Inklusiv: forgiftning, etsning, fremmedlegeme, forbrenning av
+varm væske og overflate, elektrisitet, stråling, støy, vibrasjon,
+naturkrefter, giftig dyr/plante 
+">
+				>
+				["at0123"] = <
+					text = <"99 - Ukjent skademekanisme">
+					description = <"*">
+				>
+				["at0130"] = <
+					text = <"2 - Vei, gate, fortau, gang-, sykkelvei, ikke trafikkulykke">
+					description = <"Gate, vei som er åpen for alminnelig ferdsel, også i trikk.">
+				>
+				["at0131"] = <
+					text = <"4 - Sport, idrett, mosjon i fritid">
+					description = <"*">
+				>
+				["at0132"] = <
+					text = <"5 - Helse og sosial">
+					description = <"*">
+				>
+				["at0133"] = <
+					text = <"4 - Bolig ute. hage, gårdsplass, boligområde">
+					description = <"Utvendige bygningsdeler som utvendig trapp, altan, tak,">
+				>
+				["at0136"] = <
+					text = <"Detaljert om skadested">
+					description = <"Bruke for å angi detaljer om skadested. F.eks. X- og Y-koordinat..">
+				>
+				["at0137"] = <
+					text = <"7 - Åpen ild, flamme, røyk">
+					description = <"Eksklusiv: forbrenning av varm væske eller overflate (A)">
+				>
+				["at0138"] = <
+					text = <"8 - Forfrysning">
+					description = <"*">
+				>
+				["at0141"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0208"] = <
+					text = <"*6 - Overnattings- og serveringsvirksomhet (nb)">
+					description = <"*Omfatter hotell, vandrerhjem, ferieboliger, campingplasser m.fl. (nb)">
+				>
+				["at0209"] = <
+					text = <"*7 - Undervisning (nb)">
+					description = <"*Skoler og annen undervisning (nb)">
+				>
+				["at0217"] = <
+					text = <"*New element(nb)">
+					description = <"*Det er den skadedes fremkomstmiddel som skal registreres.
+Eksempel: Hvis en fotgjenger og en bil er involvert i en ulykke, registreres den skadede
+fotgjengeren med F - Til fots. Dersom bilføreren eller passasjere (nb)">
+				>
+				["at0235"] = <
+					text = <"*Til fots (nb)">
+					description = <"">
+				>
+				["at0236"] = <
+					text = <"*Sykkel (nb)">
+					description = <"">
+				>
+				["at0237"] = <
+					text = <"*Moped (nb)">
+					description = <"">
+				>
+				["at0238"] = <
+					text = <"*Motorsykkel (nb)">
+					description = <"">
+				>
+				["at0239"] = <
+					text = <"*Personbil/varebil (nb)">
+					description = <"">
+				>
+				["at0240"] = <
+					text = <"*Lastebil (nb)">
+					description = <"">
+				>
+				["at0241"] = <
+					text = <"*Buss (nb)">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"*Trikk/tog/bane (nb)">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"*AVT/firhjuling (nb)">
+					description = <"*Også trehjuling, beltegående, uavhengig av slagvolum (nb)">
+				>
+				["at0244"] = <
+					text = <"*El-sykkel (nb)">
+					description = <"">
+				>
+				["at0245"] = <
+					text = <"*Snøskuter (nb)">
+					description = <"">
+				>
+				["at0246"] = <
+					text = <"*Ski/Snøbrett mv. (nb)">
+					description = <"">
+				>
+				["at0247"] = <
+					text = <"*Elektrisk sparkesykkel (nb)">
+					description = <"">
+				>
+				["at0248"] = <
+					text = <"*Sparkesykkel (nb)">
+					description = <"">
+				>
+				["at0249"] = <
+					text = <"*Traktor/landbruksmaskin (nb)">
+					description = <"">
+				>
+				["at0250"] = <
+					text = <"*Rullebrett/rulleskøyter/rulleski (nb)">
+					description = <"">
+				>
+				["at0251"] = <
+					text = <"*Vannskuter (nb)">
+					description = <"">
+				>
+				["at0252"] = <
+					text = <"*Båt (nb)">
+					description = <"">
+				>
+				["at0253"] = <
+					text = <"*Hest (nb)">
+					description = <"">
+				>
+				["at0254"] = <
+					text = <"*Annet spesifisert (nb)">
+					description = <"">
+				>
+				["at0255"] = <
+					text = <"*Ukjent (nb)">
+					description = <"">
+				>
+				["at0256"] = <
+					text = <"*Ikke relevant (nb)">
+					description = <"">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Skaderegistrering">
+					description = <"Registrering av felles minimum datasett (FMDS) til NPR.">
+				>
+				["at0001"] = <
+					text = <"Data">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Når">
+					description = <"Angir dato og tidspunkt skaden oppsto.">
+				>
+				["at0007"] = <
+					text = <"Kontaktårsak skade">
+					description = <"Angir om skade skyldes vold, ulykke, etc.">
+				>
+				["at0008"] = <
+					text = <"1- Ulykkesskade">
+					description = <"En ulykke er en ufrivillig hendelse, forårsaket av en hurtigvirkende kraft eller påvirkning, som kan ytre seg i en skade på kroppen. Her brukes ulykkesbegrepet i videste forstand slik at også det følgende kommer inn under begrepet: Akutt fysisk overbelastning (eksponering mindre enn 48 timer), f.eks. forløftning, forvridning, trå feil, akutt utmattelse, kollaps osv. Forgiftning som følge av kortvarig eksposisjon (mindre enn 48 timer), og som har sammenheng med omstendighetene omkring ulykken, f.eks. brudd på rør, beholder, ventil osv. Forgiftning ved at man ved et uhell spiser en giftig plante, barn får tak i medisin. Angrep og skader påført av dyr og insekt. Overeksponering av naturlig varme, kulde, lys og stråling, f.eks. solforbrenning, heteslag og forfrysning (eksponering mindre enn 48 timer).">
+				>
+				["at0009"] = <
+					text = <"2 - Villet egenskade">
+					description = <"Selvpåført skade er villet egenskade som selvmordsforsøk, selvmord, villet forgiftning, villet overdose av alkohol, narkotika, tabelltter eller annen villet egenskade.">
+				>
+				["at0010"] = <
+					text = <"3 - Vold, overfall">
+					description = <"Vold er slagsmål, håndgemeng, mishandling, mord, drap og drapsforsøk. Vold inkluderer også slagsmål mellom barn. Her kan det være vanskelig å sette grenser, og i tvilstilfeller skal skade som følge av voldsom lek registreres som ulykke og ikke som vold.">
+				>
+				["at0011"] = <
+					text = <"98 - Skade etter lovhjemlet inngripen, krigshandling">
+					description = <"Skader som oppstår i sammenstøt med politi, ordensmakt.">
+				>
+				["at0012"] = <
+					text = <"99 - Ukjent kontaktårsak">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Skademekanisme">
+					description = <"Angir akutt eller plutseling påvirkning mot kroppen av fysisk agens, som mekanisk energi, varme, elektrisitet, kjemikalier og stråling, og i en mengde eller størrelse som overstiger den menneskelige organismens toleransenivå. I noen tilfeller (drukning og forfrysning) som et plutselig fravær av nødvendig agens som oksygen eller varme.
+
+ Kommentar: Selv om det ikke er noe skarpt skille mellom sykdom og skade, oppstår skaden nesten umiddelbart etter kontakt med den påvirkende faktoren.">
+				>
+				["at0026"] = <
+					text = <"Aktivitet ved skade">
+					description = <"Angir den skadedes hovedaktivitet i skadeøyeblikket, eller den type situasjon den skadede var i.">
+				>
+				["at0027"] = <
+					text = <"1 - Inntektsgivende arbeid">
+					description = <"Lønnet arbeid: Enhver aktivitet man får lønn/godtgjørelse for, i form av penger eller naturalytelser (for eksempel kost og losji). Det gjelder i et ansettelsesforhold eller som selvstendig næringsdrivende, også i jordbruk, skogbruk og fiske på eget bruk. Vedkommende kan være i et hovedyrke eller i et biyrke. Dette gjelder også på andre steder enn vedkommendes faste arbeidsplass, f.eks. på en midlertidig arbeidsplass, hjemmekontor, ved transportoppdrag, på tjenestereise, i styreverv, møter osv. Omsorgsarbeid i eget hjem mot godtgjørelse fra kommune (f.eks. støttekontakt, fosterforeldre) regnes som lønnet arbeid. Barn og ungdom som arbeider i et avtalt arbeidsforhold (for eksempel avisbud) regnes å ha lønnet arbeid. Også en lærling har lønnet arbeid. Arbeid i det militære forsvar som ansatt eller vernepliktig regnes som lønnet arbeid. Fysisk trening i løpet av arbeidstiden i politiet, brannvesenet eller i militæret regnes som lønnet arbeid. Dette gjelder også for oljearbeidere på plattformer når de utøver fysisk aktivitet i tilknytning til arbeidet. Fysisk aktivitet i fritid regnes ikke som lønnet arbeid, som f.eks. en ansatt som driver fysisk aktivitet i fritiden på en kontinentalsokkelinstallasjon. Profesjonell idrett regnes som lønnet arbeid. Skader som skjer under måltider og andre pauser i arbeidstiden regnes som skader i lønnet arbeid. Personer som i kortere eller lengre perioder hjelper til i et arbeidsforhold, f.eks. i familiebedrifter som gårdsbruk, butikk o.l., og som ikke nødvendigvis får lønn for arbeidet, regnes for å være i lønnet arbeid. Det er arbeidstypen som er det viktigste i disse tilfellene, og ikke hvorvidt personen har inntekt eller ikke">
+				>
+				["at0029"] = <
+					text = <"2 - Utdanning (også i SFO og barnehage)">
+					description = <"Heldagsundervisning eller deltidsundervisning på skole eller utdanningsinstitusjon. Opphold i barnehage, SFO (skolefritidsordning). Skoleturer i skog og mark, leirskole og lignende som ikke er sport, idrett, mosjon i utdanning (4). Hjemmearbeid og studier i tilknytning til undervisning. Måltider på utdannings- og opplæringssted. Pauser og lek i løpet av skole- eller utdanningstiden. Eksklusiv: Møte eller foredrag med uspesifisert innhold eller kursvirksomhet generelt (8). Militærtjeneste (1). På vei til og fra utdanningssted, barnehage (8).">
+				>
+				["at0030"] = <
+					text = <"3 - Sport, idrett, mosjon i utdanning">
+					description = <"Gymnastikk, sport, idrett, trening og mosjon i løpet av skole eller utdanningstid, skolekonkurranse.">
+				>
+				["at0033"] = <
+					text = <"98 - Annen aktivitet, som lek, hobby, hus- og hagearbeid etc">
+					description = <"På reise i fritiden, til eller fra arbeid, utdanning og sportsaktiviteter. Vital aktivitet som hygiene, måltider, hvile. Eksklusiv: Personer som i kortere eller lengre perioder hjelper til i et arbeidsforhold, f.eks. i familiebedrifter som gårdsbruk, butikk o.l., og som ikke nødvendigvis får lønn for arbeidet, regnes for å være i inntektsgivende arbeid (1). Det er arbeidstypen som er det viktigste i disse tilfellene, og ikke hvorvidt personen har inntekt eller ikke.">
+				>
+				["at0034"] = <
+					text = <"99 - Ukjent aktivitet">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Arbeidsgivers bransje">
+					description = <"Angis hvis aktivitet ved skade er 1 - Inntektsgivende arbeid">
+				>
+				["at0072"] = <
+					text = <"Skadested">
+					description = <"Skadestedet er det stedet hvor skadehendelsen oppsto eller startet. F.eks. bil som kjører utfor veien og 
+havner i en elv – da er veien å betrakte som skadestedet. ">
+				>
+				["at0073"] = <
+					text = <"1 - Vei, gate, fortau, gang- , sykkelvei, trafikkulykke">
+					description = <"Gate, vei som er åpen for alminnelig ferdsel, også i trikk. Eksklusiv: I vogn på skinner for tog, T-bane (A). Traktorvei, turvei i friluftsområde (N). Privat avkjørsel til bolig (B2).  Gårdsvei (G)">
+				>
+				["at0075"] = <
+					text = <"3 - Bolig inne">
+					description = <"Bolig, fritidshus, hytte, vernet bolig for enkelthusholdninger, trapp inne. Eksklusiv: Driftsbygninger som fjøs, låve (G). Midlertidig opphold i hotell (A). Bygning under oppførelse (A). Fellesboform for pleie og omsorg (I).">
+				>
+				["at0076"] = <
+					text = <"5 - Jordbruksbedrift, skogbruk">
+					description = <"Gårdstun, driftsbygninger, dyrket mark, gårdsvei, gartneri, område for reindrift. Eksklusiv: Bolig inne (B1). Bolig ute (B2). Hage (B2). Utmark (N).">
+				>
+				["at0077"] = <
+					text = <"6 - Institusjon, sykehus, syke-, aldershjem">
+					description = <"Fritidshjem, ungdomsklubb, døgninstitusjoner for barn og unge, sykehus og helseinstitusjon, kaserne, fengsel, offentlig tilgjengelig kontor, foreningslokale, museum, kirke.">
+				>
+				["at0078"] = <
+					text = <"7 - Lekeplass">
+					description = <"Opparbeidet lekeplass på skole, SFO, barnehage, park, boligområde, hage (inkl trampoline), byggelekeplass.">
+				>
+				["at0079"] = <
+					text = <"8 - Skole, barnehage, SFO">
+					description = <"SFO: skolefritidsordning. Høyskole, universitet, skolegård og familiebarnehage. Eksklusiv: Lekeplass i skole, barnehage, SFO (H). Gymnastikksal, idrettsanlegg, svømmeanlegg på skole, universitet (P).">
+				>
+				["at0080"] = <
+					text = <"9 - Sport og idrettsområde (også på skole, universitet)">
+					description = <"Inklusiv: Idrettsanlegg inne og ute med bygninger og tribuner, ballbane, golf- og tennisbane, svømmehall, slalåmbakke og lysløype. Eksklusiv: Preparerte løyper i skog og mark som ikke er lysløyper (N). Svømmebasseng, tennisbane i privat bolig/hage (B1 eller B2).)">
+				>
+				["at0081"] = <
+					text = <"10 - Fri natur, utmark, hav, sjø og vann">
+					description = <"Utmark, skog, fjellområde, sti, turvei, preparerte skiløyper, campingplass, militært øvingsområde, brygge, sjøhus, strand, fartøy til vanns og til kai, oljeplattformer. Eksklusiv: Lysløype, bearbeidete idrettsanlegg (P). Dyrket mark (G). Offentlig brygge (A). Hytte (B1 eller B2).">
+				>
+				["at0082"] = <
+					text = <"98 - Annet skadested">
+					description = <"Transportområde som stasjon, flyplass, i vogn på skinner (tog, t-bane), parkeringsplass, bensinstasjon. Produksjonsområde som verksted, gruve og anlegg. Butikk, hotell, restaurant, park og fornøyelsesområde.">
+				>
+				["at0083"] = <
+					text = <"99 - Ukjent skadested">
+					description = <"*">
+				>
+				["at0102"] = <
+					text = <"Skadekommune">
+					description = <"Angivelse av skadekommune. ">
+				>
+				["at0105"] = <
+					text = <"Lokale registreringer">
+					description = <"Egendefinerte registreringer.">
+				>
+				["at0106"] = <
+					text = <"Alvorlighet ved skade">
+					description = <"Alvorlighetsgrad skade forteller i grove trekk hvor alvorlig pasienten er skadet, klassifisert ut fra trussel mot livets bestående.">
+				>
+				["at0107"] = <
+					text = <"5 - Friluftsliv, jakt og fiske i fritid">
+					description = <"Turer i skog og mark og på vann, bærtur og fisketur. Å skille mellom idrett sport og trening på den ene siden, og lek og friluftsliv på den annen side, er ikke alltid enkelt. En mulig indikator på en treningstur kan være at det skiftes til sports eller treningstøy, og at den har til hensikt å fremme ferdighet, styrke, kondisjonen og/eller bedre helsen. Eksklusiv: Sport, idretts og mosjonsaktiviteter i friluftsområde (4 eller 5).">
+				>
+				["at0108"] = <
+					text = <"1 - Jordbruk, skogbruk og fiske">
+					description = <"Omfatter bruken av planteressursene og de animalske ressursene, inkludert aktiviteter i forbindelse med dyrking av vekster, husdyrhold og -avl, produksjon av tømmer og høsting/utnyttelse av andre planter, dyr og animalske produkter fra en gård eller fra naturen. Omfatter fiske, fangst og fiskeoppdrett.">
+				>
+				["at0109"] = <
+					text = <"2 - Industri">
+					description = <"Industriproduksjon omfatter fysisk eller kjemisk omdanning av materialer, stoffer eller deler til nye produkter, selv om dette ikke kan brukes som det eneste kriteriet for industriproduksjon, de omdannede materialene, stoffene eller deler av råmaterialer som stammer fra jordbruk, skogbruk, fiske, bergverksdrift eller fra annen industriproduksjon. Vesentlig omdanning eller renovering av produkter betraktes vanligvis som industriproduksjon. Enhetene innenfor industriproduksjon betegnes ofte som anlegg eller fabrikker og nytter typisk motordrevne maskiner og motordrevne håndverksmaskiner.">
+				>
+				["at0111"] = <
+					text = <"3 - Bygge- og anleggsvirksomhet">
+					description = <"Næringshovedområdet omfatter generell bygge- og anleggsvirksomhet og bygge- og anleggsvirksomhet som krever spesialisering. Den omfatter nybygging, reparasjoner, tilbygging og ombygging, oppføring av prefabrikkerte bygninger eller konstruksjoner på stedet, samt bygninger og konstruksjoner av mer midlertidig karakter. Generell bygge- og anleggsvirksomhet omfatter oppføring av boligbygninger, kontor- og forretningsbygninger, lager- og industribygninger, offentlige bygninger, driftsbygninger til jordbruket mv. eller anlegg som veier, bruer, tunneler, jernbaner, lufthavner, havner og andre vannprosjekter, vanningssystemer, kloakksystemer, industrianlegg, rørledninger og kraftledninger, idrettsanlegg mv. Arbeidet kan utføres for egen regning eller på honorar- eller kontraktbasis. Deler av arbeidet og alt praktisk arbeid kan settes bort til underentreprenører. Enheter som har det overordnede ansvar for et byggeprosjekt er gruppert her. Næringshovedområdet omfatter også reparasjon og vedlikehold av bygninger og anlegg. Næringshovedområdet omfatter også utvikling av byggeprosjekter i forbindelse med bygge- og anleggsarbeider ved å samle de økonomiske, tekniske og fysiske midler som skal til for å gjennomføre byggeprosjektet for senere salg. Hvis disse aktivitetene ikke utføres for senere salg av byggeprosjektene, men derimot til eget bruk (f.eks. utleie av lokaler eller produksjonsvirksomhet) grupperes enhetene ikke her, men i henhold til driften, dvs. eiendomsdrift, type produksjonsvirksomhet osv.">
+				>
+				["at0112"] = <
+					text = <"4 - Transport og lagring">
+					description = <"Næringshovedområdet omfatter passasjer- og godstransport (med eller uten ruteplan) med jernbane, rørtransport, veitransport, skipsfart eller luftfart og tjenester i tilknytning til dette som transportsentraler, godsterminaler, parkeringsanlegg og lagerdrift mv. Næringshovedområdet omfatter også utleie av transportutstyr med sjåfør eller operatør. Post- og kurervirksomhet er også inkludert.">
+				>
+				["at0113"] = <
+					text = <"98 - Annen bransje">
+					description = <"Omfatter: Bergverksdrift og utvinning (B) • Elektrisitets-, gass-, damp- og varmtvannforsyning (D). Vannforsyning, avløps- og renovasjonsvirksomhet (E) • Varehandel, reparasjon av motorvogner (G). Informasjon og kommunikasjon (J). Finansierings- og forsikringsvirksomhet (K). Forretningsmessig virksomhet (N). Offentlig administrasjon og forsvar (O). Kulturell virksomhet (R). Annen tjenesteyting (S). Lønnet arbeid i private husholdninger (T). Internasjonale organisasjoner og organer (U).  Bokstav i parentes er basert på SSB sin «Standard for næringsgruppering».">
+				>
+				["at0114"] = <
+					text = <"99 - Ukjent bransje">
+					description = <"*">
+				>
+				["at0115"] = <
+					text = <"1 - Fall fra høyde, også i/fra trapp">
+					description = <"Fall fra høyere til lavere plan. Også fra sykkel/sparkesykkel">
+				>
+				["at0116"] = <
+					text = <"2 - Fall fra egen høyde">
+					description = <"Fall på bakke, gulv, på ski, skøyter osv. Eksklusiv: Vrikke ankel uten fall (O)">
+				>
+				["at0117"] = <
+					text = <"3 - Sammenstøt, påkjørsel">
+					description = <"Inklusiv: slag og støt i/fra kjørende transportmiddel,
+sammenstøt med personer, dyr, slag, spark av menneske, dyr.">
+				>
+				["at0118"] = <
+					text = <"4 - Klemt, fanget, knust">
+					description = <"Klemt i dør, klemt fast eller fanget i noe (f.eks. maskiner), knust, overkjørt.">
+				>
+				["at0119"] = <
+					text = <"5 - Kutt (ikke fall), bitt (ikke giftig), stikk, skutt">
+					description = <"Inklusiv: klippet, skåret, saget, revet, hugget, stukket, annen 
+inntrengning (prosjektil, flis, partikkel). 
+Dyrebitt, klort, insektsstikk. 
+Eksklusiv: bitt, stikk av giftig dyr, plante (A).">
+				>
+				["at0120"] = <
+					text = <"6 - Kvelning, drukning">
+					description = <"Inklusiv: kvelning pga. luftmangel, blokkering av luftvei, begravd
+av snø, jord, korn etc., druknet, nær druknet.">
+				>
+				["at0121"] = <
+					text = <"9 - Akutt overbelastning">
+					description = <"Akutt overbelastning av kropp/kroppsdel, strekning, vridning 
+pga. egen voldsom bevegelse eller anstrengende stilling.
+ Eksklusiv: langvarig overbelastning mer enn 48 timer.">
+				>
+				["at0122"] = <
+					text = <"98 - Annen skademekanisme">
+					description = <"Inklusiv: forgiftning, etsning, fremmedlegeme, forbrenning av 
+varm væske og overflate, elektrisitet, stråling, støy, vibrasjon, 
+naturkrefter, giftig dyr/plante.">
+				>
+				["at0123"] = <
+					text = <"99 - Ukjent skademekanisme">
+					description = <"*">
+				>
+				["at0130"] = <
+					text = <"2 - Vei, gate, fortau, gang-, sykkelvei, ikke trafikkulykke">
+					description = <"Gate, vei som er åpen for alminnelig ferdsel, også i trikk. Eksklusiv: I vogn på skinner for tog, T-bane (A). Traktorvei, turvei i friluftsområde (N). Privat avkjørsel til bolig (B2). Gårdsvei (G).">
+				>
+				["at0131"] = <
+					text = <"4 - Sport, idrett, mosjon i fritid">
+					description = <"Planlagt eller systematisert fysisk aktivitet, konkurranser, barns mer målrettede aktiviteter enn under lek, og som er organisert eller konkurranseorientert, som slalåmkjøring, fotballtrening o.l. Eksklusiv: Sjakk- eller bridgeturneringer, barns lek med sportsutstyr (8). Turer i skog og mark (7). Idrett, trening i arbeidstid eller som profesjonell f.eks. politietaten, brannvesenet og militæret (1).">
+				>
+				["at0132"] = <
+					text = <"5 - Helse og sosialtjenester">
+					description = <"Omfatter helse- og sosialtjenester: en lang rekke aktiviteter fra helsetjenester utøvet av utdannede leger på sykehus og andre institusjoner med opphold som innebærer et visst omfang av pleie til sosialinstitusjoner uten pleie.">
+				>
+				["at0133"] = <
+					text = <"4 - Bolig ute">
+					description = <"Utvendige bygningsdeler som utvendig trapp, altan, tak, stillas, stige. Innkjørsel, gårdsplass, uthus, hage, boligområde med gangareal. Eksklusiv: Lekeplass, trampoline i boligområde og i hage (H). Gate, vei i boligområde åpen for alminnelig trafikk (V1 eller V2).">
+				>
+				["at0136"] = <
+					text = <"Detaljer om skadested">
+					description = <"Brukes for å angi detaljer om skadested. F. eks. X- og Y-koordinater.">
+				>
+				["at0137"] = <
+					text = <"7 - Åpen ild, flamme, røyk">
+					description = <"Eksklusiv: forbrenning av varm væske eller overflate (A)">
+				>
+				["at0138"] = <
+					text = <"8 - Forfrysning">
+					description = <"*">
+				>
+				["at0141"] = <
+					text = <"Bydel">
+					description = <"Angivelse av bydel innenfor kommune.">
+				>
+				["at0208"] = <
+					text = <"6 - Overnattings- og serveringsvirksomhet">
+					description = <"Omfatter hotell, vandrerhjem, ferieboliger, campingplasser m.fl.">
+				>
+				["at0209"] = <
+					text = <"7 - Undervisning">
+					description = <"Skoler og annen undervisning">
+				>
+				["at0217"] = <
+					text = <"Fremkomstmiddel">
+					description = <"Det er den skadedes fremkomstmiddel som skal registreres.
+Eksempel: Hvis en fotgjenger og en bil er involvert i en ulykke, registreres den skadede
+fotgjengeren med F - Til fots. Dersom bilføreren eller passasjere">
+				>
+				["at0235"] = <
+					text = <"Til fots">
+					description = <"">
+				>
+				["at0236"] = <
+					text = <"Sykkel">
+					description = <"">
+				>
+				["at0237"] = <
+					text = <"Moped">
+					description = <"">
+				>
+				["at0238"] = <
+					text = <"Motorsykkel">
+					description = <"">
+				>
+				["at0239"] = <
+					text = <"Personbil/varebil">
+					description = <"">
+				>
+				["at0240"] = <
+					text = <"Lastebil">
+					description = <"">
+				>
+				["at0241"] = <
+					text = <"Buss">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"Trikk/tog/bane">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"AVT/firhjuling">
+					description = <"Også trehjuling, beltegående, uavhengig av slagvolum">
+				>
+				["at0244"] = <
+					text = <"El-sykkel">
+					description = <"">
+				>
+				["at0245"] = <
+					text = <"Snøskuter">
+					description = <"">
+				>
+				["at0246"] = <
+					text = <"Ski/Snøbrett mv.">
+					description = <"">
+				>
+				["at0247"] = <
+					text = <"Elektrisk sparkesykkel">
+					description = <"">
+				>
+				["at0248"] = <
+					text = <"Sparkesykkel">
+					description = <"">
+				>
+				["at0249"] = <
+					text = <"Traktor/landbruksmaskin">
+					description = <"">
+				>
+				["at0250"] = <
+					text = <"Rullebrett/rulleskøyter/rulleski">
+					description = <"">
+				>
+				["at0251"] = <
+					text = <"Vannskuter">
+					description = <"">
+				>
+				["at0252"] = <
+					text = <"Båt">
+					description = <"">
+				>
+				["at0253"] = <
+					text = <"Hest">
+					description = <"">
+				>
+				["at0254"] = <
+					text = <"Annet spesifisert">
+					description = <"">
+				>
+				["at0255"] = <
+					text = <"Ukjent">
+					description = <"">
+				>
+				["at0256"] = <
+					text = <"Ikke relevant">
+					description = <"">
+				>
+			>
+		>
+	>
