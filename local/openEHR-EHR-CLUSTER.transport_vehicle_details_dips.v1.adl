@@ -1,0 +1,79 @@
+archetype (adl_version=1.4; uid=28fb7853-be92-45b6-9733-ccd9b97f25c6)
+	openEHR-EHR-CLUSTER.transport_vehicle_details_dips.v1
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::nb]>
+
+description
+	original_author = <
+		["date"] = <"2025-11-25">
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS AS">
+		["email"] = <"bna@dips.no">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Utviklet for å støtte registrering av detaljer ved kjøretøy i forbindelse med personskade. ">
+			keywords = <"fremkomstmiddel", ...>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"bdb83a7050446ad415377a13dcf7106e">
+		["build_uid"] = <"bfdf52ed-9d59-391b-98bf-d19f22ab6d2f">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Detaljer om fremkomstmiddelet
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Eierforhold
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002,    -- Eid
+							at0003,    -- Leid
+							at0004]    -- Ukjent
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Detaljer om fremkomstmiddelet">
+					description = <"Definerer egenskapen ved transport-/fremkomstmiddel. ">
+				>
+				["at0001"] = <
+					text = <"Eierforhold">
+					description = <"">
+				>
+				["at0002"] = <
+					text = <"Eid">
+					description = <"Fremkomstmiddel eies privat">
+				>
+				["at0003"] = <
+					text = <"Leid">
+					description = <"App-basert utleie for enkeltturer. Typisk Voi/Tier/Ryde, bysykkel-ordninger. Andre leieforhold.">
+				>
+				["at0004"] = <
+					text = <"Ukjent">
+					description = <"Pasienten husker ikke eller informasjon mangler.">
+				>
+			>
+		>
+	>
